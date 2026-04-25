@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil — CONECTA UTP</title>
+  <link rel="stylesheet" href="Style/style.css">
+
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="logo-block rojo">U</div>
+      <div class="logo-block negro">T</div>
+      <div class="logo-block rojo">P</div>
+    </div>
+    <span class="nav-title">CONECTA UTP</span>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back">← Volver al feed</a>
+    </div>
+  </nav>
+
+  <div class="perfil-layout">
+
+    <div class="card perfil-card">
+
+      <div class="perfil-avatar" id="perfil-avatar">U</div>
+
+      <div id="vista-perfil">
+        <h2 id="perfil-nombre">Usuario</h2>
+        <p id="perfil-carrera" class="perfil-meta">Carrera</p>
+        <p id="perfil-bio" class="perfil-bio">Sin bio todavía.</p>
+        <button id="btn-editar" class="btn-rojo">Editar perfil</button>
+      </div>
+
+      <div id="form-perfil" style="display:none">
+        <div class="form-field">
+          <label>Nombre completo</label>
+          <input type="text" id="input-nombre" placeholder="Tu nombre">
+        </div>
+        <div class="form-field">
+          <label>Carrera</label>
+          <input type="text" id="input-carrera" placeholder="Tu carrera">
+        </div>
+        <div class="form-field">
+          <label>Bio</label>
+          <textarea id="input-bio" rows="3"
+            placeholder="Cuéntate en pocas palabras..."></textarea>
+        </div>
+        <div class="perfil-btns">
+          <button id="btn-guardar" class="btn-rojo">Guardar</button>
+          <button id="btn-cancelar" class="btn-gris">Cancelar</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="perfil-posts">
+      <p class="card-title">Mis publicaciones</p>
+      <div id="mis-posts">
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/perfil.js"></script>
+</body>
+</html>
