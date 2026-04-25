@@ -1,11 +1,142 @@
 <!DOCTYPE html>
-    <head>
-        <title>Red social básica</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html lang="en">
 
-    <body>
-        <h1>Red social básica</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONECTA UTP</title>
+    <link rel="stylesheet" href="Style/style.css">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="nav">
+        <div class="nav_logo">
+            <div class=Logo_Block_Rojo>U</div>
+            <div class="Logo_Block_Negro">T</div>
+            <div class="Logo_Block:Rojo">P</div>
+        </div>
+        <span class="nav_title">CONECTA UTP</span>
+        <div class="nav_derecha">
+            <span class="nav_nombre_usuario">Hola, Usuario</span>
+            <div class="avatar_usuario" id="avatar">U</div>
+        </div>
+    </nav>
+    <!-- LAYOUT PRINCIPAL -->
+    <div class="layout_principal">
+        <!-- BARRA LATERAL IZQUIERDA-->
+        <aside class="barra_lateral">
+            <div class="card">
+                <p class="card_titulo">Navegacion</p>
+                <a href="index.html" class="nav-item active">Feed</a>
+                <a href="#" class="nav-item">Explorar</a>
+                <a href="#" class="nav-item">
+                    Notificaciones
+                    <span class="badge" id="notif_count">0</span>
+                </a>
+                <a href="perfil.html" class="nav-item">Mi Perfil</a>
+                <a href="#sugerencias" class="nav-item">Sugerencias</a>
+            </div>
+            <div class="card">
+                <p class="card-title">Tendencias</p>
+                <div class="trnd-item">
+                    <span class="trend-tag">#HackathonUTP</span>
+                    <span class="trend-n">142</span>
+                </div>
+                <div class="trend-item">
+                    <span class="trend-tag">#PrácticasPro</span>
+                    <span class="trend-n">89</span>
+                </div>
+                div class="trend-item">
+                <span class="trend-tag">#SistemasUTP</span>
+                <span class="trend-n">67</span>
+            </div>
+            <div class="trend-item">
+                <span class="trend-tag">#BecasUTP</span>
+                <span class="trend-n">54</span>
+            </div>
+    </div>
+
+    </aside>
+    <!-- FEED CENTRAL -->
+    <main class="feed">
+
+        <!-- COMPOSITOR DE POSTS -->
+        <div class="card compose">
+            <div class="compose-row">
+                <div class="avatar-md" id="compose-avatar">U</div>
+                <textarea id="texto-post" placeholder="¿Qué está pasando en la UTP?" maxlength="280">
+        x</textarea>
+            </div>
+            <div class="compose-footer">
+                <span class="char-count" id="contador">280</span>
+                <button id="btn-publicar">Publicar</button>
+            </div>
+        </div>
+
+        <!-- FEED DE POSTS -->
+        <div id="feed">
+            <!-- JS genera los posts aquí -->
+        </div>
+
+    </main>
+    <!-- SIDEBAR DERECHA -->
+    <aside class="sidebar-right">
+
+        <!-- SUGERENCIAS -->
+        <div class="card" id="sugerencias">
+            <div class="suggest-header">
+                <div class="suggest-dot"></div>
+                <p>Sugerencias y contacto</p>
+            </div>
+            <div class="suggest-body">
+                <div class="form-field">
+                    <label>Tu nombre</label>
+                    <input type="text" id="sug-nombre" placeholder="Tu nombre">
+                </div>
+                <div class="form-field">
+                    <label>Tipo</label>
+                    <select id="sug-tipo">
+                        <option>Sugerencia de mejora</option>
+                        <option>Reporte de error</option>
+                        <option>Contacto general</option>
+                        <option>Felicitación</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Calificación</label>
+                    <div class="stars" id="stars">
+                        <span class="star on" data-i="1">★</span>
+                        <span class="star on" data-i="2">★</span>
+                        <span class="star on" data-i="3">★</span>
+                        <span class="star" data-i="4">★</span>
+                        <span class="star" data-i="5">★</span>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>Mensaje</label>
+                    <textarea id="sug-mensaje" placeholder="Escribe tu sugerencia aquí..." rows="4">
+            </textarea>
+                </div>
+                <button id="btn-sugerencia">Enviar</button>
+            </div>
+        </div>
+        <!-- CONTACTO -->
+        <div class="card">
+            <p class="card-title">Contacto UTP</p>
+            <div class="contact-item">soporte@utp.edu.pe</div>
+            <div class="contact-item">Lima Centro: 01 315 9700</div>
+            <div class="contact-item">Lun–Vie 8am–8pm</div>
+        </div>
+
+    </aside>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
 </html>
