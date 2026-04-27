@@ -553,3 +553,22 @@ body {
 
 /* Sección de mis posts */
 .perfil-posts { display: flex; flex-direction: column; gap: 10px; }
+
+footer{
+  background-color: black;
+  padding: 50px;
+  color: white;
+  text-align: center;
+}
+
+.contenedor-flex {
+  display: flex; /* Activa el modo flex */
+  gap: 20px;     /* Espacio entre columnas */
+}
+
+.columna {
+  flex: 1;       /* Hace que las 3 columnas tengan el mismo ancho */
+  background-color: black;
+  padding: 0px;
+}
+
