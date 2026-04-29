@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONECTA UTP — Iniciar sesión</title>
+    <link rel="stylesheet" href="Style/style.css">
+</head>
+
+<body class="auth-page">
+    <nav class="nav">
+        <div class="nav-logo">
+            <div class="logo-block rojo">U</div>
+            <div class="logo-block negro">T</div>
+            <div class="logo-block rojo">P</div>
+        </div>
+        <span class="nav-title">CONECTA UTP</span>
+    </nav>
+
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Bienvenido a CONECTA UTP</h2>
+                <p>La red social de la comunidad universitaria</p>
+            </div>
+            <div class="auth-tabs">
+                <div class="tab active" id="tab-login" onclick="switchTab('login')">
+                    Iniciar sesión
+                </div>
+                <div class="tab" id="tab-registro" onclick="switchTab('registro')">
+                    Crear cuenta
+                </div>
+            </div>
+
+            <div class="auth-body" id="body-login">
+
+                <div class="auth-msg error" id="login-error">
+                    Usuario o contraseña incorrectos.
+                </div>
+
+                <div class="form-field">
+                    <label for="login-email">Correo UTP</label>
+                    <input type="email" id="login-email" placeholder="tu@utp.edu.pe">
+                </div>
+
+                <div class="form-field">
+                    <label for="login-pass">Contraseña</label>
+                    <input type="password" id="login-pass" placeholder="Tu contraseña">
+                </div>
+
+                <button id="btn-login">Entrar al feed →</button>
+
+                <p class="auth-footer">
+                    ¿No tienes cuenta?
+                    <span onclick="switchTab('registro')">
+                        Regístrate aquí
+                    </span>
+                </p>
+
+            </div>
+
+            <div class="auth-body" id="body-registro" style="display:none">
+
+                <div class="auth-msg success" id="reg-success">
+                    ¡Cuenta creada! Ya puedes iniciar sesión.
+                </div>
+
+                <div class="auth-msg error" id="reg-error">
+                    Por favor completa todos los campos.
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-nombre">Nombre completo</label>
+                    <input type="text" id="reg-nombre" placeholder="Tu nombre completo">
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-email">Correo UTP</label>
+                    <input type="email" id="reg-email" placeholder="tu@utp.edu.pe">
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-carrera">Carrera</label>
+                    <input type="text" id="reg-carrera" placeholder="Ing. de Sistemas">
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-pass">Contraseña</label>
+                    <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres">
+                </div>
+
+                <button id="btn-registro">Crear cuenta</button>
+
+                <p class="auth-footer">
+                    ¿Ya tienes cuenta?
+                    <span onclick="switchTab('login')">
+                        Inicia sesión
+                    </span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

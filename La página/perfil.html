@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,20 @@
   <link rel="stylesheet" href="Style/style.css">
 
 </head>
-<body>
 
-  <nav class="nav">
-    <div class="nav-logo">
-      <div class="logo-block rojo">U</div>
-      <div class="logo-block negro">T</div>
-      <div class="logo-block rojo">P</div>
-    </div>
-    <span class="nav-title">CONECTA UTP</span>
-    <div class="nav-right">
-      <a href="index.html" class="nav-back">← Volver al feed</a>
-    </div>
+<body>
+  <a href="index.html" class="nav-logo-link">
+    <nav class="nav">
+      <div class="nav-logo">
+        <div class="logo-block rojo">U</div>
+        <div class="logo-block negro">T</div>
+        <div class="logo-block rojo">P</div>
+      </div>
+  </a>
+  <span class="nav-title">CONECTA UTP</span>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">← Volver al feed</a>
+  </div>
   </nav>
 
   <div class="perfil-layout">
@@ -45,8 +48,7 @@
         </div>
         <div class="form-field">
           <label>Bio</label>
-          <textarea id="input-bio" rows="3"
-            placeholder="Cuéntate en pocas palabras..."></textarea>
+          <textarea id="input-bio" rows="3" placeholder="Cuéntate en pocas palabras..."></textarea>
         </div>
         <div class="perfil-btns">
           <button id="btn-guardar" class="btn-rojo">Guardar</button>
@@ -67,4 +69,5 @@
   <script src="js/storage.js"></script>
   <script src="js/perfil.js"></script>
 </body>
+
 </html>

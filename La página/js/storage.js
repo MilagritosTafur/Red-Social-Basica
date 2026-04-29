@@ -87,3 +87,30 @@ function getSugerencias() {
   const data = localStorage.getItem('sugerencias');
   return data ? JSON.parse(data) : [];
 }
+
+// ── Notificaciones ──
+function getNotificaciones() {
+  const data = localStorage.getItem('notificaciones');
+  return data ? JSON.parse(data) : [];
+}
+
+
+function saveNotificacion(notif) {
+  const notifs = getNotificaciones();
+  notifs.unshift({
+    id: Date.now(),
+    ...notif,
+    leida: false,
+    fecha: new Date().toISOString()
+  });
+  localStorage.setItem('notificaciones', JSON.stringify(notifs));
+}
+
+function marcarLeidas() {
+  const notifs = getNotificaciones().map(n => ({...n, leida: true}));
+  localStorage.setItem('notificaciones', JSON.stringify(notifs));
+}
+
+function contarNoLeidas() {
+  return getNotificaciones().filter(n => !n.leida).length;
+}
