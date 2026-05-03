@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar — CONECTA UTP</title>
+    <link rel="stylesheet" href="Style/style.css">
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-logo-link">
+            <div class="nav-logo">
+                <div class="logo-block rojo">U</div>
+                <div class="logo-block negro">T</div>
+                <div class="logo-block rojo">P</div>
+            </div>
+        </a>
+        <span class="nav-title">CONECTA UTP</span>
+        <div class="nav-right">
+            <span id="nav-username">Hola, Usuario</span>
+            <div class="avatar-sm" id="nav-avatar">U</div>
+            <button id="btn-logout" onclick="cerrarSesion()">Salir</button>
+        </div>
+    </nav>
+
+    <div class="explorar-layout">
+
+        <!-- Cabecera con buscador -->
+        <div class="explorar-header">
+            <h2>Explorar</h2>
+            <p>Busca posts por texto o hashtag</p>
+            <div class="explorar-search">
+                <input type="text" id="input-buscar" placeholder="Busca por texto o #hashtag..."
+                    oninput="buscarPosts()">
+                <div class="explorar-filtros">
+                    <button class="filtro-btn active" onclick="setFiltro('todos', this)">
+                        Todos
+                    </button>
+                    <button class="filtro-btn" onclick="setFiltro('hashtag', this)">
+                        # Hashtags
+                    </button>
+                    <button class="filtro-btn" onclick="setFiltro('recientes', this)">
+                        Recientes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="resultados-count" class="resultados-count"></div>
+        <div id="explorar-feed"></div>
+
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/explorar.js"></script>
+</body>
+
+</html>

@@ -2,16 +2,11 @@
 function renderFeed() {
   const feed = document.getElementById('feed');
   const posts = getPosts();
-
   const sesion = JSON.parse(localStorage.getItem('sesion'));
   const usuarioActual = sesion ? sesion.nombre : '';
 
   if (posts.length === 0) {
-    feed.innerHTML = `
-      <div class="empty">
-        ¡Bienvenido a CONECTA UTP!
-        Sé el primero en publicar algo 🎉
-      </div>`;
+    feed.innerHTML = '<div class="empty">¡Bienvenido a CONECTA UTP! Sé el primero en publicar algo 🎉</div>';
     return;
   }
 
@@ -29,47 +24,41 @@ function renderFeed() {
       .split(' ').map(n => n[0]).join('')
       .substring(0, 2).toUpperCase();
 
-    return `
-      <div class="post" id="post-${post.id}">
-        <div class="post-head">
-          <div class="avatar-md">${iniciales}</div>
-          <div class="post-info">
-            <div class="post-name">
-              ${post.autor}
-              ${esDueno
-        ? '<span class="role-tag tag-oficial">Tú</span>'
-        : '<span class="role-tag tag-student">Estudiante</span>'
-      }
-            </div>
-            <div class="post-meta">${tiempo}</div>
-          </div>
-        </div>
-        <div class="post-body">${post.texto}</div>
-        <div class="post-actions">
+    // Botón like
+    const btnLike = esDueno
+      ? '<button class="act disabled-act" onclick="mostrarAviso()" title="No puedes dar like a tu propio post">♥ ' + post.likes + '</button>'
+      : '<button class="act ' + (yaLike ? 'liked' : '') + '" onclick="handleLike(' + post.id + ')" title="Me gusta">♥ ' + post.likes + '</button>';
 
-          <!-- Like: deshabilitado si es tu propio post -->
-          <button class="act ${yaLike ? 'liked' : ''}
-            ${esDueno ? 'disabled-act' : ''}"
-            onclick="${esDueno
-        ? 'mostrarAviso()'
-        : `handleLike(${post.id})`}"
-            title="${esDueno
-        ? 'No puedes dar like a tu propio post'
-        : 'Me gusta'}">
-            ♥ ${post.likes}
-          </button>
+    // Botones editar y eliminar — solo si es dueño
+    const btnsDueno = esDueno
+      ? '<button class="act act-edit" onclick="editarPost(' + post.id + ')">✎ Editar</button>' +
+      '<button class="act act-delete" onclick="handleDelete(' + post.id + ')">🗑 Eliminar</button>'
+      : '';
 
-          <!-- Eliminar: solo visible si eres el dueño -->
-          ${esDueno ? `
-            <button class="act act-delete"
-              onclick="handleDelete(${post.id})">
-              🗑 Eliminar
-            </button>
-          ` : ''}
+    // Tag editado
+    const tagEditado = post.editado
+      ? '<span class="editado-tag">editado</span>'
+      : '';
 
-        </div>
-      </div>
-    `;
+    // Tag de rol
+    const tagRol = esDueno
+      ? '<span class="role-tag tag-oficial">Tú</span>'
+      : '<span class="role-tag tag-student">Estudiante</span>';
+
+    return '<div class="post" id="post-' + post.id + '">' +
+      '<div class="post-head">' +
+      '<div class="avatar-md">' + iniciales + '</div>' +
+      '<div class="post-info">' +
+      '<div class="post-name">' + post.autor + ' ' + tagRol + '</div>' +
+      '<div class="post-meta">' + tiempo + '</div>' +
+      '</div>' +
+      '</div>' +
+      '<div class="post-body">' + post.texto + '</div>' +
+      '<div class="post-actions">' +
+      btnLike + btnsDueno + tagEditado +
+      '</div>' +
+      '</div>';
+
   }).join('');
 }
 
@@ -333,8 +322,65 @@ function renderNotificaciones() {
       </div>
     `;
   }).join('');
-}  
+}
 
+// ── Editar post ──
+// Convierte el texto del post en un textarea editable.
+function editarPost(postId) {
+  const posts = getPosts();
+  const post = posts.find(p => p.id === postId);
+  if (!post) return;
+
+  // Reemplaza el texto del post por un textarea con el contenido
+  const postBody = document.querySelector(
+    `#post-${postId} .post-body`
+  );
+  const postActions = document.querySelector(
+    `#post-${postId} .post-actions`
+  );
+
+  postBody.innerHTML = `
+    <textarea
+      id="edit-${postId}"
+      class="edit-textarea"
+      maxlength="280">${post.texto}</textarea>
+  `;
+
+  postActions.innerHTML = `
+    <button class="act act-save"
+      onclick="guardarEdicion(${postId})">
+      ✓ Guardar
+    </button>
+    <button class="act"
+      onclick="renderFeed()">
+      ✕ Cancelar
+    </button>
+  `;
+}
+
+// ── Guardar edición ──
+// Lee el textarea, actualiza el post y recarga el feed.
+function guardarEdicion(postId) {
+  const nuevoTexto = document.getElementById(`edit-${postId}`)
+    .value.trim();
+
+  if (!nuevoTexto) {
+    alert('El post no puede estar vacío.');
+    return;
+  }
+
+  const posts = getPosts();
+  const post = posts.find(p => p.id === postId);
+  if (!post) return;
+
+  // Actualizar el texto del post
+  post.texto = nuevoTexto;
+  post.editado = true; // marcamos que fue editado
+  savePosts(posts);
+
+  renderFeed();
+  renderTendencias();
+}
 // ── Inicializar 
 actualizarNavbar();
 renderFeed();

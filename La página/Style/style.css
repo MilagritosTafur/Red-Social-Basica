@@ -921,7 +921,7 @@ body {
   background: white;
   border-radius: 10px;
   border: 0.5px solid var(--borde);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   z-index: 200;
 }
 
@@ -956,9 +956,13 @@ body {
   transition: background 0.1s;
 }
 
-.notif-item:last-child { border-bottom: none; }
+.notif-item:last-child {
+  border-bottom: none;
+}
 
-.notif-item:hover { background: #f9f9f9; }
+.notif-item:hover {
+  background: #f9f9f9;
+}
 
 /* Notificación no leída resaltada */
 .notif-item.no-leida {
@@ -973,7 +977,9 @@ body {
   margin-top: 2px;
 }
 
-.notif-info { flex: 1; }
+.notif-info {
+  flex: 1;
+}
 
 .notif-msg {
   font-size: 13px;
@@ -997,4 +1003,143 @@ body {
   padding: 2rem;
   font-size: 13px;
   color: var(--gris);
+}
+
+/* ── Explorar ── */
+.explorar-layout {
+  max-width: 680px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.explorar-header {
+  background: white;
+  border-radius: 10px;
+  border: 0.5px solid var(--borde);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.explorar-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--negro);
+  margin-bottom: 4px;
+}
+
+.explorar-header p {
+  font-size: 13px;
+  color: var(--gris);
+  margin-bottom: 14px;
+}
+
+.explorar-search {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Input de búsqueda */
+#input-buscar {
+  width: 100%;
+  padding: 10px 14px;
+  border: 0.5px solid var(--borde);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  color: var(--negro);
+  transition: border-color 0.2s;
+}
+
+#input-buscar:focus {
+  border-color: var(--rojo);
+}
+
+/* Botones de filtro */
+.explorar-filtros {
+  display: flex;
+  gap: 8px;
+}
+
+.filtro-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 0.5px solid var(--borde);
+  background: transparent;
+  color: var(--gris);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.filtro-btn:hover {
+  border-color: var(--rojo);
+  color: var(--rojo);
+}
+
+.filtro-btn.active {
+  background: var(--rojo);
+  color: white;
+  border-color: var(--rojo);
+}
+
+/* Contador de resultados */
+.resultados-count {
+  font-size: 12px;
+  color: var(--gris);
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+
+/* Resaltado de búsqueda */
+.highlight {
+  background: #FAEEDA;
+  color: #633806;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* ── Editar post ── */
+.edit-textarea {
+  width: 100%;
+  border: 0.5px solid var(--rojo);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  resize: none;
+  min-height: 80px;
+  color: var(--negro);
+  line-height: 1.6;
+}
+
+/* Botón guardar edición */
+.act-save {
+  color: #0F6E56 !important;
+  background: #E1F5EE !important;
+  border-color: #9FE1CB !important;
+}
+
+.act-save:hover {
+  background: #9FE1CB !important;
+}
+
+/* Botón editar */
+.act-edit {
+  color: #633806 !important;
+}
+
+.act-edit:hover {
+  background: #FAEEDA !important;
+}
+
+/* Tag de post editado */
+.editado-tag {
+  font-size: 11px;
+  color: var(--gris);
+  font-style: italic;
+  margin-left: auto;
 }
