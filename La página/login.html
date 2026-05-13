@@ -87,7 +87,9 @@
 
                 <div class="form-field">
                     <label for="reg-pass">Contraseña</label>
-                    <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres">
+                    <input type="password" id="reg-pass" placeholder="Mínimo 8 caracteres, 1 mayúscula, 1 número"
+                        oninput="mostrarFuerzaPass(this.value)">
+                    <div id="pass-fuerza" class="pass-fuerza"></div>
                 </div>
 
                 <button id="btn-registro">Crear cuenta</button>
@@ -104,7 +106,7 @@
     </div>
 
     <script src="js/storage.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 
 </html>

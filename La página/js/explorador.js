@@ -1,13 +1,10 @@
-
 let filtroActual = 'todos';
 
-// ── Verificar sesión ──
 (function verificarAcceso() {
     const sesion = localStorage.getItem('sesion');
     if (!sesion) window.location.href = 'login.html';
 })();
 
-// ── Actualizar navbar ──
 function actualizarNavbar() {
     const sesion = JSON.parse(localStorage.getItem('sesion'));
     if (!sesion) return;
@@ -19,13 +16,11 @@ function actualizarNavbar() {
     document.getElementById('nav-avatar').textContent = iniciales;
 }
 
-// ── Cerrar sesión ──
 function cerrarSesion() {
     localStorage.removeItem('sesion');
     window.location.href = 'login.html';
 }
 
-// ── Cambiar filtro ──
 function setFiltro(filtro, btn) {
     filtroActual = filtro;
     document.querySelectorAll('.filtro-btn')
@@ -34,7 +29,6 @@ function setFiltro(filtro, btn) {
     buscarPosts();
 }
 
-// ── Buscar posts ──
 function buscarPosts() {
     const query = document.getElementById('input-buscar')
         .value.trim().toLowerCase();
@@ -64,7 +58,6 @@ function buscarPosts() {
     renderResultados(posts);
 }
 
-// ── Renderizar resultados ──
 function renderResultados(posts) {
     const feed = document.getElementById('explorar-feed');
     const query = document.getElementById('input-buscar')
@@ -130,6 +123,5 @@ function renderResultados(posts) {
     }).join('');
 }
 
-// ── Inicializar ──
 actualizarNavbar();
 buscarPosts();

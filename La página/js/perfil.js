@@ -1,4 +1,3 @@
-
 function renderPerfil() {
   const p = getPerfil();
 
@@ -14,7 +13,6 @@ function renderPerfil() {
   document.getElementById('perfil-carrera').textContent = p.carrera;
   document.getElementById('perfil-bio').textContent = p.bio;
 }
-
 
 function renderMisPosts() {
   const perfil = getPerfil();

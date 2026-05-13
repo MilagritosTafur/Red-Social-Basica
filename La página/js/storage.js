@@ -4,30 +4,28 @@ function getPosts() {
   return data ? JSON.parse(data) : [];
 }
 
-
 function savePosts(posts) {
   localStorage.setItem('posts', JSON.stringify(posts));
 }
 
-
 function addPost(texto) {
   const posts = getPosts();
 
+  const textoSeguro = sanitizar(texto.trim());
+
   const nuevoPost = {
-    id: Date.now(),       
-    texto: texto,         
-    autor: getPerfil().nombre,  
-    fecha: new Date().toISOString(), 
-    likes: 0,             
-    likedBy: []           
+    id: Date.now(),
+    texto: textoSeguro, 
+    autor: sanitizar(getPerfil().nombre),
+    fecha: new Date().toISOString(),
+    likes: 0,
+    likedBy: []
   };
 
-  posts.unshift(nuevoPost); // last add - last show
-                            
+  posts.unshift(nuevoPost);
   savePosts(posts);
   return nuevoPost;
 }
-
 
 function toggleLike(postId) {
   const posts = getPosts();
@@ -49,12 +47,10 @@ function toggleLike(postId) {
   return post;
 }
 
-
 function deletePost(postId) {
   const posts = getPosts().filter(p => p.id !== postId);
   savePosts(posts);
 }
-
 
 function getPerfil() {
   const data = localStorage.getItem('perfil');
@@ -66,7 +62,6 @@ function getPerfil() {
     avatar: 'img/avatar.png'
   };
 }
-
 
 function savePerfil(perfil) {
   localStorage.setItem('perfil', JSON.stringify(perfil));
@@ -82,18 +77,15 @@ function saveSugerencia(sugerencia) {
   localStorage.setItem('sugerencias', JSON.stringify(sugerencias));
 }
 
-
 function getSugerencias() {
   const data = localStorage.getItem('sugerencias');
   return data ? JSON.parse(data) : [];
 }
 
-// ── Notificaciones ──
 function getNotificaciones() {
   const data = localStorage.getItem('notificaciones');
   return data ? JSON.parse(data) : [];
 }
-
 
 function saveNotificacion(notif) {
   const notifs = getNotificaciones();
@@ -113,4 +105,41 @@ function marcarLeidas() {
 
 function contarNoLeidas() {
   return getNotificaciones().filter(n => !n.leida).length;
+}
+
+function sanitizar(texto) {
+  return texto
+    .replace(/&/g, '&amp;')  
+    .replace(/</g, '&lt;')    
+    .replace(/>/g, '&gt;') 
+    .replace(/"/g, '&quot;')  
+    .replace(/'/g, '&#x27;'); 
+}
+
+function validarEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+function validarContrasena(pass) {
+  const errores = [];
+  if (pass.length < 8)
+    errores.push('Mínimo 8 caracteres');
+  if (!/[A-Z]/.test(pass))
+    errores.push('Al menos una mayúscula');
+  if (!/[0-9]/.test(pass))
+    errores.push('Al menos un número');
+  return errores;
+}
+
+
+function validarTexto(texto, max = 280) {
+  if (!texto || !texto.trim()) return false;
+  if (texto.trim().length > max) return false;
+  return true;
+}
+
+function validarNombre(nombre) {
+  const regex = /^[a-záéíóúüñA-ZÁÉÍÓÚÜÑ\s]+$/;
+  return regex.test(nombre.trim()) && nombre.trim().length >= 2;
 }

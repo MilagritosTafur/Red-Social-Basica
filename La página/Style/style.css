@@ -1,4 +1,3 @@
-/*estilo de index html*/
 .nav-logo-link {
   text-decoration: none;
 }
@@ -478,8 +477,6 @@ body {
   }
 }
 
-/* ── Estilos del perfil ── */
-
 .nav-back {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
@@ -596,7 +593,6 @@ body {
   padding: 0px;
 }
 
-/* ── Login / Auth ── */
 .auth-page {
   background: #f0f2f5;
   min-height: 100vh;
@@ -718,7 +714,6 @@ body {
   border: 0.5px solid #9FE1CB;
 }
 
-/* Botón cerrar sesión */
 #btn-logout {
   background: rgba(255, 255, 255, 0.15);
   color: white;
@@ -735,7 +730,6 @@ body {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Aviso de seguridad */
 #aviso-seguridad {
   background: #FAEEDA;
   color: #633806;
@@ -761,7 +755,6 @@ body {
   background: #FCEBEB !important;
 }
 
-/* ── Footer ── */
 .footer {
   background: #1a1a1a;
   padding: 40px 24px 0;
@@ -909,7 +902,6 @@ body {
   }
 }
 
-/* ── Panel de notificaciones ── */
 #panel-notif {
   position: fixed;
   top: 50px;
@@ -964,7 +956,6 @@ body {
   background: #f9f9f9;
 }
 
-/* Notificación no leída resaltada */
 .notif-item.no-leida {
   background: #fff5f5;
   border-left: 3px solid var(--rojo);
@@ -1005,7 +996,6 @@ body {
   color: var(--gris);
 }
 
-/* ── Explorar ── */
 .explorar-layout {
   max-width: 680px;
   margin: 24px auto;
@@ -1039,7 +1029,6 @@ body {
   gap: 10px;
 }
 
-/* Input de búsqueda */
 #input-buscar {
   width: 100%;
   padding: 10px 14px;
@@ -1056,7 +1045,6 @@ body {
   border-color: var(--rojo);
 }
 
-/* Botones de filtro */
 .explorar-filtros {
   display: flex;
   gap: 8px;
@@ -1085,7 +1073,6 @@ body {
   border-color: var(--rojo);
 }
 
-/* Contador de resultados */
 .resultados-count {
   font-size: 12px;
   color: var(--gris);
@@ -1093,7 +1080,6 @@ body {
   padding-left: 4px;
 }
 
-/* Resaltado de búsqueda */
 .highlight {
   background: #FAEEDA;
   color: #633806;
@@ -1101,7 +1087,6 @@ body {
   padding: 0 2px;
 }
 
-/* ── Editar post ── */
 .edit-textarea {
   width: 100%;
   border: 0.5px solid var(--rojo);
@@ -1116,7 +1101,6 @@ body {
   line-height: 1.6;
 }
 
-/* Botón guardar edición */
 .act-save {
   color: #0F6E56 !important;
   background: #E1F5EE !important;
@@ -1127,7 +1111,6 @@ body {
   background: #9FE1CB !important;
 }
 
-/* Botón editar */
 .act-edit {
   color: #633806 !important;
 }
@@ -1136,10 +1119,421 @@ body {
   background: #FAEEDA !important;
 }
 
-/* Tag de post editado */
 .editado-tag {
   font-size: 11px;
   color: var(--gris);
   font-style: italic;
   margin-left: auto;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes likepop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.3); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.nav {
+  animation: fadeInDown 0.4s ease both;
+}
+
+.sidebar-left {
+  animation: fadeInLeft 0.5s ease 0.1s both;
+}
+
+.feed {
+  animation: fadeInUp 0.5s ease 0.2s both;
+}
+
+.sidebar-right {
+  animation: fadeInRight 0.5s ease 0.1s both;
+}
+
+.card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+.post {
+  animation: fadeInUp 0.3s ease both;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.post:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.btn-rojo,
+.btn-pub,
+#btn-publicar,
+.btn-auth {
+  transition: transform 0.15s ease, opacity 0.15s ease,
+              background 0.2s ease;
+}
+
+.btn-rojo:hover,
+.btn-pub:hover,
+#btn-publicar:hover,
+.btn-auth:hover {
+  transform: translateY(-1px);
+}
+
+.btn-rojo:active,
+#btn-publicar:active,
+.btn-auth:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.badge {
+  animation: pulse 1.5s ease infinite;
+}
+
+.act.liked {
+  animation: likepop 0.3s ease both;
+}
+
+.avatar-sm,
+.avatar-md {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.avatar-sm:hover,
+.avatar-md:hover {
+  transform: scale(1.08);
+  opacity: 0.9;
+}
+
+.nav-item {
+  transition: background 0.15s ease,
+              color 0.15s ease,
+              transform 0.15s ease,
+              padding-left 0.15s ease;
+}
+
+.nav-item:hover {
+  padding-left: 14px;
+}
+
+.trend-item {
+  transition: background 0.15s ease;
+  border-radius: 4px;
+  padding: 5px 4px;
+}
+
+.trend-item:hover {
+  background: #f9f9f9;
+}
+
+.footer-col a {
+  position: relative;
+}
+
+.footer-col a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 0.2s ease;
+}
+
+.footer-col a:hover::after {
+  width: 100%;
+}
+
+.social-btn {
+  transition: background 0.2s ease,
+              color 0.2s ease,
+              transform 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+}
+
+.auth-card {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.star {
+  transition: transform 0.1s ease, color 0.1s ease;
+}
+
+.star:hover {
+  transform: scale(1.3);
+}
+
+.explorar-header {
+  animation: fadeInDown 0.4s ease both;
+}
+
+#panel-notif {
+  animation: fadeInDown 0.25s ease both;
+}
+
+
+@media (min-width: 1200px) {
+  .layout {
+    grid-template-columns: 240px 1fr 240px;
+    max-width: 1100px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 901px) {
+  .layout {
+    grid-template-columns: 200px 1fr 200px;
+    max-width: 960px;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 180px 1fr;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .sidebar-right {
+    display: none;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+  }
+
+  .sidebar-left {
+    display: none;
+  }
+
+  .nav {
+    padding: 10px 16px;
+  }
+
+  .nav-title {
+    font-size: 13px;
+  }
+
+  .feed {
+    width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .explorar-layout {
+    padding: 0 12px;
+  }
+
+  .explorar-filtros {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .nav-title {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  #nav-username {
+    display: none;
+  }
+
+  #btn-logout {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .layout {
+    margin: 10px auto;
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .compose {
+    padding: 12px;
+  }
+
+  .post {
+    padding: 12px;
+  }
+
+  .post-name {
+    font-size: 12px;
+  }
+
+  .post-body {
+    font-size: 13px;
+  }
+
+  .auth-card {
+    margin: 0 8px;
+  }
+
+  .auth-body {
+    padding: 16px;
+  }
+
+  .footer {
+    padding: 28px 16px 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-badges {
+    flex-wrap: wrap;
+  }
+
+  .perfil-layout {
+    padding: 0 10px;
+  }
+
+  .perfil-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-logo .logo-block {
+    width: 22px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .nav-title { display: none; }
+
+  .post-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .auth-header h2 {
+    font-size: 14px;
+  }
+}
+
+.pass-fuerza {
+  margin-top: 4px;
+}
+
+.pass-barra-wrap {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+.pass-barra {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+
+input.input-error,
+textarea.input-error {
+  border-color: #E24B4A !important;
+  background: #fff8f8;
+}
+
+input.input-valid,
+textarea.input-valid {
+  border-color: #1D9E75 !important;
+  background: #f8fff8;
 }

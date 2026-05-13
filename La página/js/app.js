@@ -1,4 +1,3 @@
-
 function renderFeed() {
   const feed = document.getElementById('feed');
   const posts = getPosts();
@@ -24,23 +23,21 @@ function renderFeed() {
       .split(' ').map(n => n[0]).join('')
       .substring(0, 2).toUpperCase();
 
-    // Botón like
     const btnLike = esDueno
       ? '<button class="act disabled-act" onclick="mostrarAviso()" title="No puedes dar like a tu propio post">♥ ' + post.likes + '</button>'
       : '<button class="act ' + (yaLike ? 'liked' : '') + '" onclick="handleLike(' + post.id + ')" title="Me gusta">♥ ' + post.likes + '</button>';
 
-    // Botones editar y eliminar — solo si es dueño
     const btnsDueno = esDueno
       ? '<button class="act act-edit" onclick="editarPost(' + post.id + ')">✎ Editar</button>' +
       '<button class="act act-delete" onclick="handleDelete(' + post.id + ')">🗑 Eliminar</button>'
       : '';
 
-    // Tag editado
+
     const tagEditado = post.editado
       ? '<span class="editado-tag">editado</span>'
       : '';
 
-    // Tag de rol
+
     const tagRol = esDueno
       ? '<span class="role-tag tag-oficial">Tú</span>'
       : '<span class="role-tag tag-student">Estudiante</span>';
@@ -324,14 +321,11 @@ function renderNotificaciones() {
   }).join('');
 }
 
-// ── Editar post ──
-// Convierte el texto del post en un textarea editable.
 function editarPost(postId) {
   const posts = getPosts();
   const post = posts.find(p => p.id === postId);
   if (!post) return;
 
-  // Reemplaza el texto del post por un textarea con el contenido
   const postBody = document.querySelector(
     `#post-${postId} .post-body`
   );
@@ -358,8 +352,6 @@ function editarPost(postId) {
   `;
 }
 
-// ── Guardar edición ──
-// Lee el textarea, actualiza el post y recarga el feed.
 function guardarEdicion(postId) {
   const nuevoTexto = document.getElementById(`edit-${postId}`)
     .value.trim();
@@ -373,15 +365,15 @@ function guardarEdicion(postId) {
   const post = posts.find(p => p.id === postId);
   if (!post) return;
 
-  // Actualizar el texto del post
+
   post.texto = nuevoTexto;
-  post.editado = true; // marcamos que fue editado
+  post.editado = true; 
   savePosts(posts);
 
   renderFeed();
   renderTendencias();
 }
-// ── Inicializar 
+
 actualizarNavbar();
 renderFeed();
 renderTendencias();
