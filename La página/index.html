@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
   <title>CONECTA UTP</title>
   <link rel="stylesheet" href="Style/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
@@ -22,6 +24,7 @@
       </div>
   </a>
   <span class="nav-title">CONECTA UTP</span>
+  
   <div class="nav-right">
     <span id="nav-username">Hola, Usuario</span>
     <a href="perfil.html">
@@ -29,10 +32,30 @@
     </a>
     <button id="btnx-logout" onclick="cerrarSesion()">Salir</button>
   </div>
-  </nav>
+      </nav>
 
   <div id="aviso-seguridad" style="display:none">
     No puedes realizar esta acción en tu propio post.
+  </div>
+
+  <div id="modal-confirmar" style="display:none">
+    <div class="modal-overlay" onclick="cerrarModal()"></div>
+    <div class="modal-card">
+      <div class="modal-icon">🗑</div>
+      <h3 class="modal-titulo">¿Eliminar publicación?</h3>
+      <p class="modal-desc">
+        Esta acción no se puede deshacer.
+        El post se eliminará permanentemente.
+      </p>
+      <div class="modal-btns">
+        <button class="modal-btn-cancelar" onclick="cerrarModal()">
+          Cancelar
+        </button>
+        <button class="modal-btn-confirmar" id="btn-confirmar-eliminar">
+          Sí, eliminar
+        </button>
+      </div>
+    </div>
   </div>
 
   <div id="panel-notif" style="display:none">
@@ -179,7 +202,7 @@
     <div class="footer-col">
       <h4>Contáctanos</h4>
       <a href="tel:+51919506674">
-        <i class="fa-solid fa-phone"></i> +51 919 506 674
+        <i class="fa-solid fa-phone"></i> +51 999 999 999
       </a>
       <a href="mailto:soporte@utp.edu.pe">
         <i class="fa-solid fa-envelope"></i> soporte@utp.edu.pe

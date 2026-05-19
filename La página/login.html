@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.svg">
     <title>CONECTA UTP — Iniciar sesión</title>
     <link rel="stylesheet" href="Style/style.css">
 </head>
@@ -24,17 +26,18 @@
                 <h2>Bienvenido a CONECTA UTP</h2>
                 <p>La red social de la comunidad universitaria</p>
             </div>
+
             <div class="auth-tabs">
                 <div class="tab active" id="tab-login" onclick="switchTab('login')">
                     Iniciar sesión
                 </div>
+
                 <div class="tab" id="tab-registro" onclick="switchTab('registro')">
                     Crear cuenta
                 </div>
             </div>
-
+            <!-- Formulario de inicio de sesión -->
             <div class="auth-body" id="body-login">
-
                 <div class="auth-msg error" id="login-error">
                     Usuario o contraseña incorrectos.
                 </div>
@@ -49,7 +52,12 @@
                     <input type="password" id="login-pass" placeholder="Tu contraseña">
                 </div>
 
-                <button id="btn-login">Entrar al feed →</button>
+                <button id="btn-login">
+                    <span id="login-texto">Entrar al feed → </span>
+                    <span id="login-spinner" style="display:none">
+                        <span class="spinner"></span> Verificando...
+                    </span>
+                </button>
 
                 <p class="auth-footer">
                     ¿No tienes cuenta?
@@ -57,11 +65,9 @@
                         Regístrate aquí
                     </span>
                 </p>
-
             </div>
-
+            <!-- Formulario de registro -->
             <div class="auth-body" id="body-registro" style="display:none">
-
                 <div class="auth-msg success" id="reg-success">
                     ¡Cuenta creada! Ya puedes iniciar sesión.
                 </div>
@@ -92,7 +98,12 @@
                     <div id="pass-fuerza" class="pass-fuerza"></div>
                 </div>
 
-                <button id="btn-registro">Crear cuenta</button>
+                <button id="btn-registro">
+                    <span id="reg-texto">Crear cuenta</span>
+                    <span id="reg-spinner" style="display:none">
+                        <span class="spinner"></span> Creando cuenta...
+                    </span>
+                </button>
 
                 <p class="auth-footer">
                     ¿Ya tienes cuenta?
@@ -100,11 +111,10 @@
                         Inicia sesión
                     </span>
                 </p>
-
             </div>
         </div>
     </div>
-
+<!-- inicio de las funciones de la página -->
     <script src="js/storage.js"></script>
     <script src="js/auth.js"></script>
 </body>

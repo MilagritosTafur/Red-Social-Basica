@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
   <title>Mi Perfil — CONECTA UTP</title>
   <link rel="stylesheet" href="Style/style.css">
-
 </head>
 
 <body>
@@ -20,16 +21,14 @@
   </a>
   <span class="nav-title">CONECTA UTP</span>
   <div class="nav-right">
-    <a href="index.html" class="nav-back">← Volver al feed</a>
+    <a href="index.html" class="nav-back"> ← Volver al feed</a>
   </div>
   </nav>
 
   <div class="perfil-layout">
-
     <div class="card perfil-card">
 
       <div class="perfil-avatar" id="perfil-avatar">U</div>
-
       <div id="vista-perfil">
         <h2 id="perfil-nombre">Usuario</h2>
         <p id="perfil-carrera" class="perfil-meta">Carrera</p>
@@ -42,20 +41,22 @@
           <label>Nombre completo</label>
           <input type="text" id="input-nombre" placeholder="Tu nombre">
         </div>
+
         <div class="form-field">
           <label>Carrera</label>
           <input type="text" id="input-carrera" placeholder="Tu carrera">
         </div>
+
         <div class="form-field">
           <label>Bio</label>
           <textarea id="input-bio" rows="3" placeholder="Cuéntate en pocas palabras..."></textarea>
         </div>
+
         <div class="perfil-btns">
           <button id="btn-guardar" class="btn-rojo">Guardar</button>
           <button id="btn-cancelar" class="btn-gris">Cancelar</button>
         </div>
       </div>
-
     </div>
 
     <div class="perfil-posts">
@@ -63,7 +64,6 @@
       <div id="mis-posts">
       </div>
     </div>
-
   </div>
 
   <script src="js/storage.js"></script>

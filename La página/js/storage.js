@@ -1,4 +1,3 @@
-
 function getPosts() {
   const data = localStorage.getItem('posts');
   return data ? JSON.parse(data) : [];
@@ -131,15 +130,55 @@ function validarContrasena(pass) {
     errores.push('Al menos un número');
   return errores;
 }
-
-
+// funcion que valida el texto de un post o comentario, 
+// asegurándose de que no esté vacío, no tenga solo espacios y no exceda un límite de caracteres 
+// (por defecto 280).
 function validarTexto(texto, max = 280) {
   if (!texto || !texto.trim()) return false;
   if (texto.trim().length > max) return false;
   return true;
 }
-
+// funcion que valida el nombre del usuario, 
+// permitiendo letras, espacios y caracteres acentuados, 
+// con una longitud mínima de 2 caracteres.
 function validarNombre(nombre) {
   const regex = /^[a-záéíóúüñA-ZÁÉÍÓÚÜÑ\s]+$/;
   return regex.test(nombre.trim()) && nombre.trim().length >= 2;
+}
+
+// ── Comentarios ──
+// permite agregar un comentario a un post específico usando su id,
+//  el texto del comentario se sanitiza para evitar inyecciones de código. 
+// El comentario se guarda con el autor y la fecha.
+function addComentario(postId, texto) {
+  const posts = getPosts();
+  const post = posts.find(p => p.id === postId);
+  if (!post) return;
+
+// inicializa el array de comentarios si no existe, 
+// luego agrega el nuevo comentario al post y guarda los cambios.
+  if (!post.comentarios) post.comentarios = [];
+
+  post.comentarios.push({
+    id: Date.now(),
+    texto: sanitizar(texto.trim()),
+    autor: sanitizar(getPerfil().nombre),
+    fecha: new Date().toISOString()
+  });
+
+  savePosts(posts);
+  return post;
+}
+
+// funcion que elimina el comentario usando el id.
+function deleteComentario(postId, comentarioId) {
+  const posts = getPosts();
+  const post = posts.find(p => p.id === postId);
+  if (!post || !post.comentarios) return;
+
+  post.comentarios = post.comentarios.filter(
+    c => c.id !== comentarioId
+  );
+
+  savePosts(posts);
 }

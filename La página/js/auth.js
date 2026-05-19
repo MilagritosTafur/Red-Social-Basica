@@ -1,4 +1,3 @@
-
 function verificarSesion() {
     const sesion = localStorage.getItem('sesion');
     if (sesion) window.location.href = 'index.html';
@@ -46,19 +45,15 @@ function guardarUsuario(usuario) {
 function mostrarFuerzaPass(pass) {
     const div = document.getElementById('pass-fuerza');
     if (!div) return;
-
     const errores = validarContrasena(pass);
     const fuerza = 3 - errores.length;
-
     if (pass.length === 0) {
         div.innerHTML = '';
         return;
     }
-
     const colores = ['#E24B4A', '#BA7517', '#1D9E75'];
     const textos = ['Débil', 'Regular', 'Fuerte'];
     const barras = ['33%', '66%', '100%'];
-
     div.innerHTML =
         '<div class="pass-barra-wrap">' +
         '<div class="pass-barra" style="width:' +
@@ -80,44 +75,33 @@ document.getElementById('btn-registro')
         const carrera = document.getElementById('reg-carrera').value.trim();
         const pass = document.getElementById('reg-pass').value;
         const errorDiv = document.getElementById('reg-error');
-
         if (!validarNombre(nombre)) {
-            errorDiv.textContent =
-                'El nombre solo puede tener letras y espacios.';
+            errorDiv.textContent = 'El nombre solo puede tener letras y espacios.';
             mostrarMensaje('reg-error');
             return;
         }
-
         if (nombre.length > 60) {
-            errorDiv.textContent =
-                'El nombre no puede tener más de 60 caracteres.';
+            errorDiv.textContent = 'El nombre no puede tener más de 60 caracteres.';
             mostrarMensaje('reg-error');
             return;
         }
-
         if (!validarEmail(email)) {
-            errorDiv.textContent =
-                'Ingresa un correo válido (ej: tu@utp.edu.pe).';
+            errorDiv.textContent = 'Ingresa un correo válido (ej: tu@utp.edu.pe).';
             mostrarMensaje('reg-error');
             return;
         }
-
         if (!validarTexto(carrera, 60)) {
             errorDiv.textContent = 'Ingresa una carrera válida.';
             mostrarMensaje('reg-error');
             return;
         }
-
         const erroresPass = validarContrasena(pass);
         if (erroresPass.length > 0) {
-            errorDiv.textContent =
-                'Contraseña débil: ' + erroresPass.join(', ');
+            errorDiv.textContent = 'Contraseña débil: ' + erroresPass.join(', ');
             mostrarMensaje('reg-error');
             return;
         }
-
-        const usuarios = getUsuarios();
-        const existe = usuarios.find(
+        const existe = getUsuarios().find(
             u => u.email.toLowerCase() === email.toLowerCase()
         );
         if (existe) {
@@ -126,29 +110,33 @@ document.getElementById('btn-registro')
             return;
         }
 
-        guardarUsuario({
-            nombre: sanitizar(nombre),
-            email: email.toLowerCase(),
-            carrera: sanitizar(carrera),
-            pass
-        });
+        mostrarSpinner('btn-registro', 'reg-texto', 'reg-spinner');
+        setTimeout(() => {
+            guardarUsuario({
+                nombre: sanitizar(nombre),
+                email: email.toLowerCase(),
+                carrera: sanitizar(carrera),
+                pass
+            });
 
-        savePerfil({
-            nombre: sanitizar(nombre),
-            email: email.toLowerCase(),
-            carrera: sanitizar(carrera),
-            ciclo: '1',
-            bio: 'Hola, soy nuevo en CONECTA UTP.',
-            avatar: 'img/avatar.png'
-        });
+            savePerfil({
+                nombre: sanitizar(nombre),
+                email: email.toLowerCase(),
+                carrera: sanitizar(carrera),
+                ciclo: '1',
+                bio: 'Hola, soy nuevo en CONECTA UTP.',
+                avatar: 'img/avatar.png'
+            });
 
-        document.getElementById('reg-nombre').value = '';
-        document.getElementById('reg-email').value = '';
-        document.getElementById('reg-carrera').value = '';
-        document.getElementById('reg-pass').value = '';
+            document.getElementById('reg-nombre').value = '';
+            document.getElementById('reg-email').value = '';
+            document.getElementById('reg-carrera').value = '';
+            document.getElementById('reg-pass').value = '';
 
-        mostrarMensaje('reg-success');
-        setTimeout(() => switchTab('login'), 1500);
+            ocultarSpinner('btn-registro', 'reg-texto', 'reg-spinner');
+            mostrarMensaje('reg-success');
+            setTimeout(() => switchTab('login'), 1500);
+        }, 800);
     });
 
 document.getElementById('btn-login')
@@ -157,50 +145,50 @@ document.getElementById('btn-login')
             .value.trim();
         const pass = document.getElementById('login-pass').value;
         const errorDiv = document.getElementById('login-error');
-
         if (!email || !pass) {
             errorDiv.textContent =
                 'Por favor ingresa tu correo y contraseña.';
             mostrarMensaje('login-error');
             return;
         }
-
         if (!validarEmail(email)) {
-            errorDiv.textContent =
-                'Ingresa un correo válido.';
+            errorDiv.textContent = 'Ingresa un correo válido.';
             mostrarMensaje('login-error');
             return;
         }
 
-        const usuarios = getUsuarios();
-        const usuario = usuarios.find(
-            u => u.email.toLowerCase() === email.toLowerCase()
-                && u.pass === pass
-        );
+        mostrarSpinner('btn-login', 'login-texto', 'login-spinner');
 
-        if (!usuario) {
-            errorDiv.textContent =
-                'Correo o contraseña incorrectos.';
-            mostrarMensaje('login-error');
-            return;
-        }
+        setTimeout(() => {
+            const usuarios = getUsuarios();
+            const usuario = usuarios.find(
+                u => u.email.toLowerCase() === email.toLowerCase()
+                    && u.pass === pass
+            );
 
-        localStorage.setItem('sesion', JSON.stringify({
-            nombre: usuario.nombre,
-            email: usuario.email,
-            carrera: usuario.carrera
-        }));
+            if (!usuario) {
+                errorDiv.textContent = 'Correo o contraseña incorrectos.';
+                mostrarMensaje('login-error');
+                ocultarSpinner('btn-login', 'login-texto', 'login-spinner');
+                return;
+            }
 
-        savePerfil({
-            nombre: usuario.nombre,
-            email: usuario.email,
-            carrera: usuario.carrera,
-            ciclo: '1',
-            bio: getPerfil().bio || 'Hola, soy nuevo en CONECTA UTP.',
-            avatar: 'img/avatar.png'
-        });
+            localStorage.setItem('sesion', JSON.stringify({
+                nombre: usuario.nombre,
+                email: usuario.email,
+                carrera: usuario.carrera
+            }));
 
-        window.location.href = 'index.html';
+            savePerfil({
+                nombre: usuario.nombre,
+                email: usuario.email,
+                carrera: usuario.carrera,
+                ciclo: '1',
+                bio: getPerfil().bio || 'Hola, soy nuevo en CONECTA UTP.',
+                avatar: 'img/avatar.png'
+            });
+            window.location.href = 'index.html';
+        }, 800);
     });
 
 document.addEventListener('keydown', (e) => {
@@ -213,5 +201,17 @@ document.addEventListener('keydown', (e) => {
         document.getElementById('btn-registro').click();
     }
 });
+
+function mostrarSpinner(btnId, textoId, spinnerId) {
+    document.getElementById(btnId).disabled = true;
+    document.getElementById(textoId).style.display = 'none';
+    document.getElementById(spinnerId).style.display = 'inline';
+}
+
+function ocultarSpinner(btnId, textoId, spinnerId) {
+    document.getElementById(btnId).disabled = false;
+    document.getElementById(textoId).style.display = 'inline';
+    document.getElementById(spinnerId).style.display = 'none';
+}
 
 verificarSesion();

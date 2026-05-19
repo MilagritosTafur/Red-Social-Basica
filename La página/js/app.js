@@ -31,8 +31,37 @@ function renderFeed() {
       ? '<button class="act act-edit" onclick="editarPost(' + post.id + ')">✎ Editar</button>' +
       '<button class="act act-delete" onclick="handleDelete(' + post.id + ')">🗑 Eliminar</button>'
       : '';
+    // contador de comentarios.
+    const totalComs = post.comentarios
+      ? post.comentarios.length : 0;
 
+    // boton de comentarios con contador dinámico,
+    //  que muestra el número de comentarios y permite alternar
+    //  la visibilidad de la sección de comentarios.
+    const btnComentar = '<button id="btn-comentar-' + post.id + '" ' +
+      'class="act" ' +
+      'data-total="' + totalComs + '" ' +
+      'onclick="toggleComentarios(' + post.id + ')">' +
+      '💬 ' + totalComs +
+      '</button>';
 
+    // Sección de comentarios — oculta por defecto
+    const seccionComentarios =
+      '<div id="comentarios-' + post.id + '" ' +
+      'class="comentarios-seccion" style="display:none">' +
+      '<div id="lista-comentarios-' + post.id + '">' +
+      '</div>' +
+      '<div class="com-input-wrap">' +
+      '<input type="text" ' +
+      'id="input-com-' + post.id + '" ' +
+      'class="com-input" ' +
+      'placeholder="Escribe un comentario..." ' +
+      'maxlength="200" ' +
+      'onkeydown="if(event.key===\'Enter\')handleComentario(' + post.id + ')">' +
+      '<button class="com-send" ' +
+      'onclick="handleComentario(' + post.id + ')">→</button>' +
+      '</div>' +
+      '</div>';
     const tagEditado = post.editado
       ? '<span class="editado-tag">editado</span>'
       : '';
@@ -52,13 +81,12 @@ function renderFeed() {
       '</div>' +
       '<div class="post-body">' + post.texto + '</div>' +
       '<div class="post-actions">' +
-      btnLike + btnsDueno + tagEditado +
+      btnLike + btnComentar + btnsDueno + tagEditado +
       '</div>' +
+      seccionComentarios +
       '</div>';
-
   }).join('');
 }
-
 
 function actualizarNavbar() {
   const sesion = JSON.parse(localStorage.getItem('sesion'));
@@ -139,21 +167,29 @@ function handleLike(postId) {
 function handleDelete(postId) {
   const sesion = JSON.parse(localStorage.getItem('sesion'));
   if (!sesion) return;
-
   const posts = getPosts();
   const post = posts.find(p => p.id === postId);
-
   if (!post || post.autor !== sesion.nombre) {
     alert('No tienes permiso para eliminar este post.');
     return;
   }
-
-  if (confirm('¿Eliminar esta publicación?')) {
-    deletePost(postId);
-    renderFeed();
-    renderTendencias()
-  }
+  const modal = document.getElementById('modal-confirmar');
+  modal.style.display = 'flex';
+  document.getElementById('btn-confirmar-eliminar')
+    .onclick = () => {
+      deletePost(postId);
+      cerrarModal();
+      renderFeed();
+      renderTendencias();
+    };
 }
+function cerrarModal() {
+  document.getElementById('modal-confirmar')
+    .style.display = 'none';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') cerrarModal();
+});
 
 function mostrarAviso() {
   const aviso = document.getElementById('aviso-seguridad');
@@ -367,13 +403,105 @@ function guardarEdicion(postId) {
 
 
   post.texto = nuevoTexto;
-  post.editado = true; 
+  post.editado = true;
   savePosts(posts);
 
   renderFeed();
   renderTendencias();
 }
+// ── Mostrar/ocultar comentarios ──
+function toggleComentarios(postId) {
+  const seccion = document.getElementById('comentarios-' + postId);
+  const btn = document.getElementById('btn-comentar-' + postId);
 
+  if (seccion.style.display === 'none') {
+    seccion.style.display = 'block';
+    btn.textContent = '💬 Ocultar';
+    renderComentarios(postId);
+  } else {
+    seccion.style.display = 'none';
+    btn.textContent = '💬 ' + (btn.dataset.total || '0');
+  }
+}
+
+// ── Renderizar comentarios de un post ──
+function renderComentarios(postId) {
+  const posts = getPosts();
+  const post = posts.find(p => p.id === postId);
+  if (!post) return;
+
+  const lista = document.getElementById('lista-comentarios-' + postId);
+  const comentarios = post.comentarios || [];
+  const sesion = JSON.parse(localStorage.getItem('sesion'));
+
+  if (comentarios.length === 0) {
+    lista.innerHTML = '<p class="comentario-empty">Sin comentarios aún. ¡Sé el primero!</p>';
+    return;
+  }
+
+  lista.innerHTML = comentarios.map(c => {
+    const fecha = new Date(c.fecha).toLocaleDateString('es-PE', {
+      day: 'numeric', month: 'short',
+      hour: '2-digit', minute: '2-digit'
+    });
+
+    const iniciales = c.autor
+      .split(' ').map(n => n[0]).join('')
+      .substring(0, 2).toUpperCase();
+
+    const esDueno = sesion && c.autor === sesion.nombre;
+
+    return '<div class="comentario" id="com-' + c.id + '">' +
+      '<div class="com-avatar">' + iniciales + '</div>' +
+      '<div class="com-body">' +
+      '<div class="com-header">' +
+      '<span class="com-autor">' + c.autor + '</span>' +
+      '<span class="com-fecha">' + fecha + '</span>' +
+      (esDueno
+        ? '<button class="com-delete" onclick="handleDeleteComentario(' + postId + ',' + c.id + ')">✕</button>'
+        : '') +
+      '</div>' +
+      '<p class="com-texto">' + c.texto + '</p>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// permite agregar un comentario a un post, 
+// validando que el texto no esté vacío ni exceda los 200 caracteres, 
+// y luego actualiza la sección de comentarios y el contador del botón.
+function handleComentario(postId) {
+  const input = document.getElementById('input-com-' + postId);
+  const texto = input.value.trim();
+
+  if (!texto) return;
+  if (texto.length > 200) {
+    alert('El comentario no puede tener más de 200 caracteres.');
+    return;
+  }
+
+  addComentario(postId, texto);
+  input.value = '';
+  renderComentarios(postId);
+
+  // actualiza el contador del botón de comentarios con el nuevo total después de agregar el comentario.
+  const posts = getPosts();
+  const post = posts.find(p => p.id === postId);
+  const btn = document.getElementById('btn-comentar-' + postId);
+  const total = post.comentarios ? post.comentarios.length : 0;
+  btn.dataset.total = total;
+  btn.textContent = '💬 Ocultar';
+}
+
+// permite eliminar el comentario usando su id, 
+// luego actualiza la sección de comentarios para reflejar el cambio.
+function handleDeleteComentario(postId, comentarioId) {
+  const sesion = JSON.parse(localStorage.getItem('sesion'));
+  if (!sesion) return;
+
+  deleteComentario(postId, comentarioId);
+  renderComentarios(postId);
+}
 actualizarNavbar();
 renderFeed();
 renderTendencias();
